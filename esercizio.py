@@ -4,7 +4,7 @@
 from liv1 import Auto, Moto, Autobus, Camion
 from liv2 import PostoMezzo
 import datetime
-from parcheggio import Veicolo
+from veicolo import Veicolo
 
 mezziOK = ("auto", "moto", "camion", "autobus")
 
