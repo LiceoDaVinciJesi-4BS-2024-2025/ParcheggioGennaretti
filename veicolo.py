@@ -1,23 +1,23 @@
 # Veicolo
 
-alimOk = ("benzina", "diesel", "elettrico", "metano", "GPL")
-marchiOk = ("fiat", "toyota", "audi", "bmw", "mercedes", "subaru")
-modelliOk = ("panda", "yaris", "a3", "serie3", "classeA", "impreza")
-coloriOk = ("rosso", "grigio", "nero", "bianco", "blu")
+alimOk = ("", "benzina", "diesel", "elettrico", "metano", "GPL")
+marchiOk = ("", "fiat", "toyota", "audi", "bmw", "mercedes", "subaru")
+modelliOk = ("", "panda", "yaris", "a3", "serie3", "classeA", "impreza")
+coloriOk = ("", "rosso", "grigio", "nero", "bianco", "blu")
 alfabeto = "QWERTYUIOPASDFGHJKLZXCVBNM"
 numeri = "1234567890"
 
 def targaValida(targa) -> bool:
     """controlla se la targa è in un formato valido (del tipo AB123CD)"""
-    if len(targa) != 7:
+    if len(targa) != 7: # Controllo lunghezza
         return False
     
-    for pos in (0,1,5,6):
+    for pos in (0,1,5,6): # Controllo lettere ABCD
         lettera = targa[pos]
         if lettera not in alfabeto:
             return False
         
-    for pos in (2,3,4):
+    for pos in (2,3,4): # Controllo numeri 123
         numero = targa[pos]
         if numero not in numeri:
             return False
@@ -43,7 +43,7 @@ class Veicolo:
             raise ValueError("colore non accettabile")
         self.__colore = colore
         
-        if cilindrata <= 0 or cilindrata % 100 != 0:
+        if cilindrata < 0 or cilindrata % 100 != 0: # Multiplo di 100, cilindrata positiva
             raise ValueError("cilindrata non accettabile")
         self.__cilindrata = cilindrata
         

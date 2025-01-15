@@ -4,6 +4,7 @@
 mezziOK = ("auto", "moto", "camion", "autobus")
 
 import datetime
+from pathlib import Path
 from veicolo import Veicolo
 
 class PostoMezzo(Veicolo):
@@ -27,7 +28,10 @@ class PostoMezzo(Veicolo):
 
     def prenota(self, targa, oreSosta):
         if self.libero:
+            if self.tipoMezzo == mezziOK[0]:
+
             self.libero = False
+            self.targa = targa
             ora = datetime.datetime.now()
             self.oraTermine = ora + datetime.timedelta(hours=oreSosta)
             return True
@@ -35,7 +39,7 @@ class PostoMezzo(Veicolo):
             return False
 
     def libera(self, targa):
-        self.libero = True
         self.targa = ""
+        self.libero = True
         self.oraTermine = None
         return
