@@ -38,4 +38,4 @@ class PostoMezzo(Veicolo):
         self.libero = True
         self.targa = ""
         self.oraTermine = None
-
+        return
