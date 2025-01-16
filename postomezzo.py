@@ -1,6 +1,3 @@
-# Livello 2
-# Martino Gennaretti
-
 mezziOK = ("auto", "moto", "camion", "autobus")
 
 import datetime

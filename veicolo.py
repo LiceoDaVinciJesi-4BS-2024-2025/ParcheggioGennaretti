@@ -24,9 +24,7 @@ def targaValida(targa) -> bool:
     return True
 
 class Veicolo:
-    
     def __init__(self, targa, marca = "", modello = "", colore = "", cilindrata = 0, alimentazione = "benzina"):
-        
         if not targaValida(targa):
             raise ValueError("targa non accettabile")
         self.__targa = targa
@@ -108,7 +106,6 @@ class Veicolo:
         return
 
     def __lt__(self, other):
-        
         if self.marca < other.marca:
             return True
         
@@ -117,5 +114,4 @@ class Veicolo:
         
         if self.marca == other.marca and self.modello == other.modello and self.cilindrata < other.cilindrata: 
             return True
-        
         return False
