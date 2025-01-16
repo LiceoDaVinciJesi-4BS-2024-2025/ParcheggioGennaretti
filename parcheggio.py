@@ -1,12 +1,13 @@
 from postomezzo import PostoMezzo
 
-parcheggio = []
+parcheggio = {"auto": "", "moto": "", "camion": "", "autobus": ""}
 contaPosti = {"auto": 1000, "moto": 200, "camion": 50, "autobus": 200}
 guadagnoGG = {"auto": 1.5, "moto": 1.2, "camion": 1.8, "autobus": 2.4}
+
 class Parcheggio(PostoMezzo):
     def __init__(self):
-        super().__init__(tipoMezzo, )
-
+        super().__init__(targa, libero)
+        self.__guadagnoGiornaliero
     @property
     def contaPosti(self):
         return self.__contaPosti
@@ -30,13 +31,3 @@ class Parcheggio(PostoMezzo):
             f.write(postoMezzo)
         else:
             f.write(targa + " " + datetime.datetime.now())
-
-while True:
-    scelta = input("Cosa vuoi fare? 'Prenota/Libera/Visualizza Conteggio/Chiudi' ")
-    if scelta == "Prenota":
-        targa = input("Inserire targa: ")
-        tipoMezzo = input("Inserire tipoMezzo: ")
-        oreSosta = input("Quante ore vuoi sostare? ")
-        posto = PostoMezzo.prenota(targa, oreSosta)
-        parcheggio.append(posto)
-        contaPosti[tipoMezzo] -= 1
