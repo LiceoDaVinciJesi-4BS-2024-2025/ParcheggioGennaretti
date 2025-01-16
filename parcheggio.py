@@ -1,15 +1,4 @@
-from auto import Auto
-from moto import Moto
-from autobus import Autobus
-from camion import Camion
 from postomezzo import PostoMezzo
-
-from veicolo import Veicolo
-
-import datetime
-
-mezziOK = ("auto", "moto", "camion", "autobus")
-
 
 parcheggio = []
 contaPosti = {"auto": 1000, "moto": 200, "camion": 50, "autobus": 200}
