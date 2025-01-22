@@ -1,4 +1,4 @@
-from parcheggio import Parcheggio
+from parcheggio import parcheggio
 
 while True:
     scelta = input("Cosa vuoi fare? 'Prenota/Libera/Visualizza Conteggio/Chiudi' ")
@@ -7,7 +7,7 @@ while True:
         tipoMezzo = input("Inserire tipoMezzo: ")
         oreSosta = input("Quante ore vuoi sostare? ")
         posto = Parcheggio.prenota(targa, oreSosta)
-        parcheggio.append(posto)
+        Parcheggio.append(posto)
         contaPosti[tipoMezzo] -= 1
     elif scelta == "Libera":
         targa = input("Inserire targa: ")

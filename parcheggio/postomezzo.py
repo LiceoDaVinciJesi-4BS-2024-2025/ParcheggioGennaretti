@@ -1,6 +1,4 @@
 import datetime
-from pathlib import Path
-from veicolo import Veicolo
 from auto import Auto
 from moto import Moto
 from autobus import Autobus
@@ -8,10 +6,10 @@ from camion import Camion
 
 mezziOK = ("auto", "moto", "camion", "autobus")
 
-class PostoMezzo(Veicolo):
-    def __init__(self, targa, tipoMezzo):
-        super().__init__(targa)
-        self.__libero = False
+class PostoMezzo():
+    def __init__(self, tipoMezzo):
+        self.__libero = True
+        self.__mezzo = ""
         if tipoMezzo not in mezziOK:
             self.__tipoMezzo = tipoMezzo
         else:
@@ -24,27 +22,33 @@ class PostoMezzo(Veicolo):
             s = f"Posto {self.__tipoMezzo} occupato da {self.targa} fino alle {self.oraTermine}"
         return s
 
-        @property
-        def tipoMezzo(self):
-            return self.__tipoMezzo
+    @property
+    def tipoMezzo(self):
+        return self.__tipoMezzo
+    
+    @property
+    def mezzo(self):
+        return self.__mezzo
 
-        @property
-        def libero(self):
-            return libero
+    @property
+    def libero(self):
+        return self.__libero
 
     def prenota(self, targa, oreSosta):
         if self.libero:
-            if self.tipoMezzo in mezziOK:
+            if self.__tipoMezzo in mezziOK:
+                if self.__tipoMezzo == "auto":
+                    self.__mezzo = Auto(targa)
+                elif self.__tipoMezzo == "moto":
+                    self.__mezzo = Moto(targa)
+                elif self.__tipoMezzo == "camion":
+                    self.__mezzo = Camion(targa)
+                elif self.__tipoMezzo == "autobus":
+                    self.__mezzo = Autobus(targa)
+
                 self.libero = False
-                self.targa = targa
                 ora = datetime.datetime.now()
                 self.oraTermine = ora + datetime.timedelta(hours=oreSosta)
                 return True
         else:
             return False
-
-    def libera(self, targa):
-        self.targa = ""
-        self.libero = True
-        self.oraTermine = None
-        return
