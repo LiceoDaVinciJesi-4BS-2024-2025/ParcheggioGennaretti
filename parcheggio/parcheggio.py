@@ -1,10 +1,9 @@
-from pathlib import Path
 from postomezzo import PostoMezzo
 import datetime
 import csv
 
 mezziOK = ("auto", "moto", "camion", "autobus")
-class Parcheggio():
+class Parcheggio:
     def __init__(self):
         self.__parcheggio = {"auto": "", "moto": "", "camion": "", "autobus": ""}
         self.__contaPosti = {"auto": 1000, "moto": 200, "camion": 50, "autobus": 200}
@@ -39,10 +38,23 @@ class Parcheggio():
         if str.lower(tipoMezzo) not in mezziOK:
             raise ValueError("tipoMezzo non accettabile")
         return self.__contaPosti[tipoMezzo]
+    
+    def prenota(self, targa, tipoMezzo, oreSosta):
+        if self.libero:
+            if self.__tipoMezzo in mezziOK:
+                if self.__tipoMezzo == "auto":
+                    self.__mezzo = Auto(targa)
+                elif self.__tipoMezzo == "moto":
+                    self.__mezzo = Moto(targa)
+                elif self.__tipoMezzo == "camion":
+                    self.__mezzo = Camion(targa)
+                elif self.__tipoMezzo == "autobus":
+                    self.__mezzo = Autobus(targa)
 
-    def salvaFile(self, azione, postoMezzo):
+    def modificaFile(self, azione, postoMezzo):
         f = open("park.data", "w")
         if azione == "Prenota":
             scrittore = csv.DictWriter(file, campi)
-        else:
-            f.write(postoMezzo.mezzo.targa + " " + datetime.datetime.now())
+            else:
+                f.write(postoMezzo.mezzo.targa + " " + datetime.datetime.now())
+        

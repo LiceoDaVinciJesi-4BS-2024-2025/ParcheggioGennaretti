@@ -3,52 +3,109 @@ from auto import Auto
 from moto import Moto
 from autobus import Autobus
 from camion import Camion
+from veicolo import Veicolo
 
 mezziOK = ("auto", "moto", "camion", "autobus")
 
-class PostoMezzo():
-    def __init__(self, tipoMezzo):
-        self.__libero = True
-        self.__mezzo = ""
+class PostoMezzo:
+    def __init__(self, occupato: bool = None, tipologia: str = None, targa: str = None, oreSosta: int = None):
+    
+        if occupato == None:
+            raise ValueError("Specificare se il posto è libero o occupato")
+        self.__occupato = occupato
+        
         if tipoMezzo not in mezziOK:
-            self.__tipoMezzo = tipoMezzo
-        else:
-            raise ValueError("tipoMezzo non valido.")
-
+            raise ValueError("Specificare la tipologia di posto")
+        self.__tipoMezzo = tipoMezzo
+        
+        if not occupato and (targa != None or oreSosta != None):
+            raise ValueError("Un posto libero non può avere targa o oreSosta")
+        
+        if occupato and (targa == None or oreSosta == None):
+            raise ValueError("Un posto occupato deve avere targa e oreSosta")
+        
+        elif occupato and targa != None and oreSosta != None:
+            if len(targa) != 7 or not targaValida(targa):
+                raise ValueError("La targa inserita non è valida")
+            self.__targa = targa
+        
+            self.__oreSosta = oreSosta
+        
+            
+            return
+              
+        self.__targa = targa
+        
+        self.__oreSosta = oreSosta
+        
     def __str__(self):
-        if self.libero:
-            s = f"Posto {self.__tipoMezzo} libero"
-        else:
-            s = f"Posto {self.__tipoMezzo} occupato da {self.targa} fino alle {self.oraTermine}"
-        return s
-
-    @property
-    def tipoMezzo(self):
-        return self.__tipoMezzo
+        return __class__.__name__ + str(self.__dict__)
+    
+    def __repr__(self):
+        return __class__.__name__ + str(self.__dict__)
     
     @property
-    def mezzo(self):
-        return self.__mezzo
-
+    def occupato(self):
+        return self.__occupato
+    
+    @occupato.setter
+    def occupato(self, value):
+        self.__occupato = value
+        return
+    
     @property
-    def libero(self):
-        return self.__libero
-
-    def prenota(self, targa, oreSosta):
-        if self.libero:
-            if self.__tipoMezzo in mezziOK:
-                if self.__tipoMezzo == "auto":
-                    self.__mezzo = Auto(targa)
-                elif self.__tipoMezzo == "moto":
-                    self.__mezzo = Moto(targa)
-                elif self.__tipoMezzo == "camion":
-                    self.__mezzo = Camion(targa)
-                elif self.__tipoMezzo == "autobus":
-                    self.__mezzo = Autobus(targa)
-
-                self.libero = False
-                ora = datetime.datetime.now()
-                self.oraTermine = ora + datetime.timedelta(hours=oreSosta)
-                return True
+    def tipologia(self):
+        return self.__tipologia
+    
+    @tipologia.setter
+    def tipologia(self, value):
+        self.__tipologia = value
+        return
+    
+    @property
+    def targa(self):
+        """ proprietà sola lettura: la targa NON deve essere modificabile """
+        return self.__targa
+    
+    @targa.setter
+    def targa(self, value):
+        self.__targa = value
+    
+    @property
+    def oreSosta(self):
+        return self.__oreSosta
+    
+    @oreSosta.setter
+    def oreSosta(self, value):
+        self.__oreSosta = value
+        return
+    
+    def parcheggia(self, V, oreSosta) -> bool:
+        if self.occupato:
+            return False
+        if isinstance(V, Moto) and self.tipologia == "Moto":
+            self.occupato = True
+            self.targa = V.targa
+            self.oreSosta = oreSosta
+        
+        elif isinstance(V, Auto) and self.tipologia == "Auto":
+            self.occupato = True
+            self.targa = V.targa
+            self.oreSosta = oreSosta
+            
+    
+            
+        else:
+            return False
+        
+        return True
+    
+    def libera(self) -> bool:
+        if self.occupato:
+            self.targa = None
+            self.oreSosta = None
+            self.occupato = False    
+            return True
+        
         else:
             return False
