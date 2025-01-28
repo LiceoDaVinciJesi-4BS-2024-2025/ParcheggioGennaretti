@@ -105,7 +105,7 @@ class Veicolo:
         self.__alimentazione = value
         return
 
-    def __lt__(self, other):
+    def __lt__(self, other) -> bool:
         if self.marca < other.marca:
             return True
         
