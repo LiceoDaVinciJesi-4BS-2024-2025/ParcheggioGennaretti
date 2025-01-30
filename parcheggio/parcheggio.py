@@ -2,9 +2,10 @@ from postomezzo import PostoMezzo
 
 mezziOK = ("auto", "moto", "camion", "autobus")
 class Parcheggio:
-    def __init__(self):
+    def __init__(self, nome):
         self.__parcheggio = {"auto": [], "moto": [], "camion": [], "autobus": []}
         self.__guadagnoGG = {"auto": 1.5, "moto": 1.2, "camion": 1.8, "autobus": 2.4}
+        self.__nomePark = nome
 
     def __str__(self):
         a = "Parcheggio: " + str(self.__dict__)
@@ -36,3 +37,19 @@ class Parcheggio:
             raise ValueError("postoMezzo non accettabile")
         self.__parcheggio[postoMezzo.tipoMezzo] = postoMezzo
         return
+    
+    def salvaFile(self):
+        for dato in self.__parcheggio:
+            file = open("park.data", "w", newline="") 
+            scrittore = csv.DictWriter(file, ("auto","moto","camion","autobus"))
+            scrittore.writeheader()
+            for riga in dati:
+                scrittore.writerow(riga)
+            file.close()
+    
+    def caricaFile(self):
+        file = open("park.data", "r")
+        lettore = csv.DictReader(file)
+        for riga in lettore:
+            self.__parcheggio.append(riga)
+        file.close()

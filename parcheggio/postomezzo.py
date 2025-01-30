@@ -30,8 +30,6 @@ class PostoMezzo:
             self.__targa = targa
         
             self.__oreSosta = oreSosta
-        
-            
             return
               
         self.__targa = targa

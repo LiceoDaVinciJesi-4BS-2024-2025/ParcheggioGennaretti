@@ -1,16 +1,16 @@
 from parcheggio import Parcheggio
-from parcheggio import postomezzo as PostoMezzo
 
 while True:
-    scelta = input("Cosa vuoi fare? 'CreaPark / PrenotaPark / LiberaPark / Visualizza Conteggio / Chiudi / Salva")
+    scelta = input("Cosa vuoi fare? 'CreaPark / PrenotaPark / LiberaPark / Visualizza Conteggio / Chiudi / Salva ")
     if scelta == "CreaPark": # Crea un posto per un mezzo specifico es. Auto e viene inserito nell'ogetto Parcheggio
-        postoMezzo = PostoMezzo(False, targa, tipoMezzo, oreSosta)
-        Parcheggio.aggiungiPostoMezzo(postoMezzo)
+        input("Inserisci il tipoMezzo: ")
+        Parcheggio.aggiungiPostoMezzo((False, None, tipoMezzo, None))
 
     elif scelta == "Prenota":
         targa = input("Inserire targa: ")
         tipoMezzo = input("Inserire tipoMezzo: ")
         oreSosta = input("Quante ore vuoi sostare? ")
+        for postoMezzo["auto"] in parcheggio
         postoMezzo = PostoMezzo(targa, tipoMezzo, oreSosta)
         posto = Parcheggio.prenota(targa, oreSosta)
         Parcheggio.append(posto)
@@ -24,7 +24,7 @@ while True:
         contaPosti[tipoMezzo] += 1
     elif scelta == "Visualizza Conteggio":
         print(contaPosti)
-    elif scelta == "Chiudi":
+    elif scelta == "Salva":
         break
     else:
-        input("Cosa vuoi fare? 'CreaPark / PrenotaPark / LiberaPark / Visualizza Conteggio / Chiudi / Salva")
+        input("Cosa vuoi fare? 'CreaPark / PrenotaPark / LiberaPark / Visualizza Conteggio / Chiudi / Salva ")
