@@ -1,6 +1,7 @@
 from parcheggio import Parcheggio
 
 while True:
+    print("Martino è un tontolone")
     scelta = input("Cosa vuoi fare? 'CreaPark / PrenotaPark / LiberaPark / Visualizza Conteggio / Chiudi / Salva ")
     if scelta == "CreaPark": # Crea un posto per un mezzo specifico es. Auto e viene inserito nell'ogetto Parcheggio
         input("Inserisci il tipoMezzo: ")
