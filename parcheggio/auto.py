@@ -13,10 +13,12 @@ class Auto(Veicolo):
     
     @property
     def maxPers(self):
+        """Passeggeri massimi trasportabili"""
         return self.__maxPers
 
     @property
     def traspPers(self):
+        """Passeggeri trasportati"""
         return self.__traspPers
 
     @traspPers.setter

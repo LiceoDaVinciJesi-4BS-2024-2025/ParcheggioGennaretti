@@ -13,10 +13,12 @@ class Camion(Veicolo):
     
     @property
     def maxKg(self):
+        """Peso massimo trasportabile"""
         return self.__maxKg
 
     @property
     def traspKg(self):
+        """Peso trasportato"""
         return self.__traspKg
         
     @traspKg.setter

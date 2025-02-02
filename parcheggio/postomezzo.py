@@ -44,6 +44,7 @@ class PostoMezzo:
     
     @property
     def occupato(self):
+        """Restituisce se il posto è occupato o meno"""
         return self.__occupato
     
     @occupato.setter
@@ -53,6 +54,7 @@ class PostoMezzo:
     
     @property
     def tipoMezzo(self):
+        """Restituisce il tipo di mezzo"""
         return self.__tipoMezzo
     
     @tipoMezzo.setter
@@ -62,7 +64,7 @@ class PostoMezzo:
     
     @property
     def targa(self):
-        """ proprietà sola lettura: la targa NON deve essere modificabile """
+        """proprietà sola lettura: la targa NON deve essere modificabile"""
         return self.__targa
     
     @targa.setter
@@ -71,6 +73,7 @@ class PostoMezzo:
     
     @property
     def oreSosta(self):
+        """Restituisce le ore di sosta"""
         return self.__oreSosta
     
     @oreSosta.setter
@@ -79,6 +82,7 @@ class PostoMezzo:
         return
     
     def parcheggia(self, V, oreSosta) -> bool:
+        """Parcheggia un veicolo in un posto"""
         if self.occupato:
             return False
         if isinstance(V, Moto) and self.tipoMezzo == "moto":
@@ -97,6 +101,7 @@ class PostoMezzo:
         return True
     
     def libera(self) -> bool:
+        """Libera un posto"""
         if self.occupato:
             self.targa = None
             self.oreSosta = None

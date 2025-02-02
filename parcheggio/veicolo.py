@@ -63,6 +63,7 @@ class Veicolo:
     
     @property
     def marca(self):
+        """Marca del veicolo"""
         return self.__marca
         
     @marca.setter
@@ -74,6 +75,7 @@ class Veicolo:
     
     @property
     def colore(self):
+        """Colore del veicolo"""
         return self.__colore
     
     @colore.setter
@@ -85,6 +87,7 @@ class Veicolo:
 
     @property
     def cilindrata(self):
+        """Cilindrata del veicolo"""
         return self.__cilindrata
     
     @cilindrata.setter
@@ -96,6 +99,7 @@ class Veicolo:
     
     @property
     def alimentazione(self):
+        """Alimentazione del veicolo"""
         return self.__alimentazione
         
     @alimentazione.setter
