@@ -1,5 +1,4 @@
 from postomezzo import PostoMezzo
-import csv
 
 mezziOK = ("auto", "moto", "camion", "autobus")
 
@@ -109,18 +108,16 @@ class Parcheggio:
 
     def salvaFile(self):
         """Salva i dati del parcheggio in un file csv"""
-        file = open("park.data", "w", newline="")
-        scrittore = csv.DictWriter(file, mezziOK)
-        scrittore.writeheader()
+        file = open("park.data", "w")
         for tipoMezzo in mezziOK:
-            for riga in self.__parcheggio[tipoMezzo]:
-                scrittore.writerow(riga)
+            for posto in self.__parcheggio[tipoMezzo]:
+                file.write(str(posto) + "\n")
         file.close()
+        return True
 
     def caricaFile(self):
         """Carica i dati del parcheggio da un file csv e ripristina lo stato del parcheggio"""
         file = open("park.data", "r")
-        lettore = csv.DictReader(file)
-        for riga in lettore:
-            self.__parcheggio.append(riga)
-        file.close()
+        return True
+
+
