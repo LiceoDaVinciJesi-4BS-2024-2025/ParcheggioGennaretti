@@ -8,7 +8,7 @@ from veicolo import targaValida
 mezziOK = ("auto", "moto", "camion", "autobus")
 
 class PostoMezzo:
-    def __init__(self, occupato: bool = None, tipoMezzo: str = None, targa: str = None, oreSosta: int = None, fineSosta: int = None):
+    def __init__(self, occupato: bool = None, tipoMezzo: str = None, targa: str = None, oreSosta: int = None, fineSosta: datetime.datetime = None):
     
         if occupato == None:
             raise ValueError("Specificare se il posto è libero o occupato")

@@ -43,8 +43,8 @@ class Parcheggio:
             return False
         self.__parcheggio[tipoMezzo].append(PostoMezzo(False, tipoMezzo, None, None))
 
-    def prenotaPosto(self, targa, tipoMezzo, oreSosta) -> bool:
-        """Prenota un posto per un mezzo specifico es. Auto nell'oggetto Parcheggio"""
+    def occupaPosto(self, targa, tipoMezzo, oreSosta) -> bool:
+        """Occupa un posto per un mezzo specifico es. Auto nell'oggetto Parcheggio"""
         if str.lower(tipoMezzo) not in mezziOK:
             raise ValueError("tipoMezzo non accettabile")
             return False
@@ -55,7 +55,7 @@ class Parcheggio:
                 posto.oreSosta = oreSosta
                 self.__contaPostiOccupati[tipoMezzo] += 1
                 return True
-        return False
+        
 
     def liberaPosto(self, targa, tipoMezzo) -> bool:
         """Libera un posto per un mezzo specifico es. Auto nell'ogetto Parcheggio"""
