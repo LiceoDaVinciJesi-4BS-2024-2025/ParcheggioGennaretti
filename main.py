@@ -9,9 +9,10 @@ from autobus import Autobus
 nome = "ParcheggioGennaretti"
 parcheggio = Parcheggio(nome)
 
+print(f"Benvenuto in {parcheggio.nome}!")
 while True:
     # print("Martino è un tontolone")
-    scelta = str.lower(input("Cosa vuoi fare? 'crea / occupa / libera / contaPostiOccupati / chiudi / salva: "))
+    scelta = str.lower(input("Cosa vuoi fare? 'crea / occupa / libera / contaPostiOccupati / salvaChiudi / caricaFile: "))
     if scelta == "parcheggio":
         print(parcheggio)
         continue
@@ -43,11 +44,11 @@ while True:
         print(parcheggio.conteggioPostiOccupati(tipoMezzo))
 
 
-    elif scelta == "salva": # Da implementare
+    elif scelta == "salvaChiudi": # Da implementare
         break
 
 
-    elif scelta == "chiudi": # Chiude il programma
+    elif scelta == "caricaFile": # Da implementare
         break
 
 

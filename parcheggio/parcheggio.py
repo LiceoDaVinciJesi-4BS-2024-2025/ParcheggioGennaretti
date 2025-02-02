@@ -5,16 +5,16 @@ mezziOK = ("auto", "moto", "camion", "autobus")
 
 class Parcheggio:
     def __init__(self, nome: str):
-        self.__parcheggioAuto = []
-        self.__parcheggioMoto = []
-        self.__parcheggioCamion = []
-        self.__parcheggioAutobus = []
-        self.__parcheggio = {"auto": self.__parcheggioAuto, "moto": self.__parcheggioMoto, "camion": self.__parcheggioCamion, "autobus": self.__parcheggioAutobus}
-        self.__guadagnoGG = {"auto": 1.5, "moto": 1.2, "camion": 1.8, "autobus": 2.4}
+        self.__parcheggio = {"auto": [], "moto": [], "camion": [], "autobus": []}
+
+        self.__tariffaGG = {"auto": 1.5, "moto": 1.2, "camion": 1.8, "autobus": 2.4}
+        self.__contaOre = {"auto": 0, "moto": 0, "camion": 0, "autobus": 0}
+        self.__guadagnoTotaleGG = {"auto": self.__contaOre["auto"] * self.__tariffaGG["auto"], "moto": self.__contaOre["moto"] * self.__tariffaGG["moto"], "camion": self.__contaOre["camion"] * self.__tariffaGG["camion"], "autobus": self.__contaOre["autobus"] * self.__tariffaGG["autobus"]}
 
         self.__contaPostiOccupati = {"auto": 0, "moto": 0, "camion": 0, "autobus": 0}
         self.__postiMax = {"auto": 1000, "moto": 500, "camion": 100, "autobus": 200}
-        self.__nomePark = nome
+
+        self.__nome = nome
 
     def __str__(self):
         a = "Parcheggio: " + str(self.__dict__)
@@ -24,18 +24,36 @@ class Parcheggio:
     def parcheggio(self):
         """Restituisce il parcheggio"""
         return self.__parcheggio
+    
+    @property
+    def tariffaGG(self):
+        """Restituisce la tariffa giornaliera per tipo di veicolo"""
+        return self.__tariffaGG
+    
+    @property
+    def contaOre(self):
+        """Restituisce il conteggio delle ore per tipo di veicolo"""
+        return self.__contaOre
 
     @property
-    def guadagnoGG(self):
+    def guadagnoTotaleGG(self):
         """Restituisce il guadagno giornaliero per tipo di veicolo"""
-        return self.__guadagnoGG
+        return self.__guadagnoTotaleGG
+
+    @property
+    def contaPostiOccupati(self):
+        """Restituisce il conteggio dei posti occupati per tipo di veicolo"""
+        return self.__contaPostiOccupati
+    
+    @property
+    def nome(self):
+        """Restituisce il nome del parcheggio"""
+        return self.__nome
 
 
     def guadagnoGiornaliero(self):
         """Restituisce il guadagno giornaliero totale del parcheggio"""
-        for tipoMezzo in self.__parcheggio:
-            self.__guadagnoGiornaliero[tipoMezzo] = self.__guadagnoGG[tipoMezzo] * self.__parcheggio[tipoMezzo]
-        return self.__guadagnoGiornaliero
+        return self.__guadagnoGG
     
     def creaPosto(self, tipoMezzo):
         """Crea un posto per un mezzo specifico es. Auto e viene inserito nell'ogetto Parcheggio"""
@@ -49,9 +67,10 @@ class Parcheggio:
             if not posto.occupato:
                 posto.parcheggia(V, oreSosta)
                 self.__contaPostiOccupati[tipoMezzo] += 1
+                self.__contaOre[tipoMezzo] += oreSosta
                 return True
-            else:
-                raise ValueError("Non ci sono posti disponibili")
+        else:
+            raise ValueError("Non ci sono posti disponibili")
         
     def liberaPosto(self, targa, tipoMezzo) -> bool:
         """Libera un posto per un mezzo specifico es. Auto nell'ogetto Parcheggio"""
