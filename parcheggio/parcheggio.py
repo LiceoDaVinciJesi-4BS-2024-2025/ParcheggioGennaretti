@@ -118,7 +118,7 @@ class Parcheggio:
         file.close()
 
     def caricaFile(self):
-        """Carica i dati del parcheggio da un file csv"""
+        """Carica i dati del parcheggio da un file csv e ripristina lo stato del parcheggio"""
         file = open("park.data", "r")
         lettore = csv.DictReader(file)
         for riga in lettore:

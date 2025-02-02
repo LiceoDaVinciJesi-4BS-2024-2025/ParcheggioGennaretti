@@ -63,7 +63,7 @@ class PostoMezzo:
     @property
     def veicolo(self):
         """proprietà sola lettura: il veicolo NON deve essere modificabile"""
-        return self.__targa
+        return self.__veicolo
     
     @veicolo.setter
     def veicolo(self, value):
@@ -104,24 +104,24 @@ class PostoMezzo:
         if self.occupato:
             return False
         if isinstance(V, Moto) and self.tipoMezzo == "moto":
-            self.occupato = True
-            self.veicolo = V
-            self.oreSosta = oreSosta
+            self.__occupato = True
+            self.__veicolo = V
+            self.__oreSosta = oreSosta
 
         elif isinstance(V, Auto) and self.tipoMezzo == "auto":
-            self.occupato = True
-            self.veicolo = V
-            self.oreSosta = oreSosta
+            self.__occupato = True
+            self.__veicolo = V
+            self.__oreSosta = oreSosta
         
         elif isinstance(V, Camion) and self.tipoMezzo == "camion":
-            self.occupato = True
-            self.veicolo = V
-            self.oreSosta = oreSosta
+            self.__occupato = True
+            self.__veicolo = V
+            self.__oreSosta = oreSosta
         
         elif isinstance(V, Autobus) and self.tipoMezzo == "autobus":
-            self.occupato = True
-            self.veicolo = V
-            self.oreSosta = oreSosta
+            self.__occupato = True
+            self.__veicolo = V
+            self.__oreSosta = oreSosta
 
         else:
             return False
@@ -131,11 +131,11 @@ class PostoMezzo:
     def libera(self) -> bool:
         """Libera un posto"""
         if self.occupato:
-            self.veicolo = None
-            self.oreSosta = None
-            self.occupato = False 
-            self.fineSosta = None  
-            self.mezzo = None 
+            self.__veicolo = None
+            self.__oreSosta = None
+            self.__occupato = False 
+            self.__fineSosta = None  
+            self.__mezzo = None 
             return True
         
         else:
