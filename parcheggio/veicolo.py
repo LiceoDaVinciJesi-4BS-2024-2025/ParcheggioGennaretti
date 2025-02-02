@@ -13,7 +13,7 @@ def targaValida(targa) -> bool:
         return False
     
     for pos in (0,1,5,6): # Controllo lettere ABCD
-        lettera = targa[pos]
+        lettera = str.upper(targa[pos])
         if lettera not in alfabeto:
             return False
         

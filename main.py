@@ -11,12 +11,15 @@ parcheggio = Parcheggio(nome)
 
 while True:
     # print("Martino è un tontolone")
-    scelta = input("Cosa vuoi fare? 'crea / occupa / libera / conteggioPostiOccupati / chiudi / salva: ")
+    scelta = str.lower(input("Cosa vuoi fare? 'crea / occupa / libera / contaPostiOccupati / chiudi / salva: "))
+    if scelta == "parcheggio":
+        print(parcheggio)
+        continue
     tipoMezzo = input("Inserire tipoMezzo: ")
 
     if scelta == "crea": # Crea il posto nell'oggetto parcheggio
         parcheggio.creaPosto(tipoMezzo)
-    
+
     if scelta in ("occupa", "libera"): # Azioni che richiedono la targa
         targa = input("Inserire targa: ")
 
@@ -32,7 +35,7 @@ while True:
                 parcheggio.parcheggiaPosto(Autobus(targa, 80, 35), tipoMezzo, oreSosta)
 
         elif scelta == "libera": # Libera un posto per un mezzo specifico es. Auto nell'ogetto Parcheggio
-            targa = input("Inserire targa: ")
+            targa = str.upper(input("Inserire targa: "))
             parcheggio.liberaPosto(targa, tipoMezzo)
 
 
@@ -46,6 +49,7 @@ while True:
 
     elif scelta == "chiudi": # Chiude il programma
         break
+
 
     elif scelta == "parcheggio":
         print(parcheggio)

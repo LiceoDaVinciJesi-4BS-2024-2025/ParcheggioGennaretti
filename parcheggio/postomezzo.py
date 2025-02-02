@@ -14,7 +14,7 @@ class PostoMezzo:
             raise ValueError("Specificare se il posto è libero o occupato")
         self.__occupato = occupato
         
-        if tipoMezzo not in mezziOK:
+        if str.lower(tipoMezzo) not in mezziOK:
             raise ValueError("Specificare la tipologia di posto")
         self.__tipoMezzo = str.lower(tipoMezzo)
         
@@ -76,7 +76,7 @@ class PostoMezzo:
     
     @mezzo.setter
     def mezzo(self, value):
-        self.__mezzo = value
+        self.__mezzo = str.lower(value)
         return
     
     @property
