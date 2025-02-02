@@ -1,7 +1,7 @@
 from veicolo import Veicolo
 
 class Camion(Veicolo):
-    def __init__(self, targa, maxKg, traspKg, marca = "", modello = ""):
+    def __init__(self, targa: str, maxKg: float, traspKg: float, marca: str = "", modello: str = ""):
         super().__init__(targa, marca, modello)
         self.__maxKg = maxKg
         if traspKg > self.__maxKg:

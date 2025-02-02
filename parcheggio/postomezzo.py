@@ -8,7 +8,7 @@ from veicolo import targaValida
 mezziOK = ("auto", "moto", "camion", "autobus")
 
 class PostoMezzo:
-    def __init__(self, occupato: bool = None, tipoMezzo: str = None, targa: str = None, oreSosta: int = None):
+    def __init__(self, occupato: bool = None, tipoMezzo: str = None, targa: str = None, oreSosta: int = None, fineSosta: int = None):
     
         if occupato == None:
             raise ValueError("Specificare se il posto è libero o occupato")
@@ -30,6 +30,7 @@ class PostoMezzo:
             self.__targa = targa
         
             self.__oreSosta = oreSosta
+            self.__fineSosta = datetime.datetime.now() + datetime.timedelta(hours = oreSosta) # Calcola l'orario di fine sosta
             return
               
         self.__targa = targa
@@ -79,7 +80,13 @@ class PostoMezzo:
     @oreSosta.setter
     def oreSosta(self, value):
         self.__oreSosta = value
+        self.__fineSosta = datetime.datetime.now() + datetime.timedelta(hours = value) # Calcola l'orario di fine sosta
         return
+    
+    @property
+    def fineSosta(self):
+        """Restituisce l'orario di fine sosta"""
+        return self.__fineSosta
     
     def parcheggia(self, V, oreSosta) -> bool:
         """Parcheggia un veicolo in un posto"""

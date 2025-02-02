@@ -1,7 +1,7 @@
 from veicolo import Veicolo
 
 class Moto(Veicolo):
-    def __init__(self, targa, maxPers, traspPers, marca = "", modello = ""):
+    def __init__(self, targa: str, maxPers: int, traspPers: int, marca: str = "", modello: str = ""):
         super().__init__(targa, marca, modello)
         self.__maxPers = maxPers
         if traspPers > self.__maxPers:

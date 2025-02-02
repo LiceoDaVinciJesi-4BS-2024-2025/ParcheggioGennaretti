@@ -3,7 +3,7 @@ import csv
 
 mezziOK = ("auto", "moto", "camion", "autobus")
 class Parcheggio:
-    def __init__(self, nome):
+    def __init__(self, nome: str):
         self.__parcheggioAuto = []
         self.__parcheggioMoto = []
         self.__parcheggioCamion = []
