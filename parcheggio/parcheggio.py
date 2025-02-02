@@ -2,6 +2,7 @@ from postomezzo import PostoMezzo
 import csv
 
 mezziOK = ("auto", "moto", "camion", "autobus")
+
 class Parcheggio:
     def __init__(self, nome: str):
         self.__parcheggioAuto = []
@@ -40,36 +41,27 @@ class Parcheggio:
         """Crea un posto per un mezzo specifico es. Auto e viene inserito nell'ogetto Parcheggio"""
         if str.lower(tipoMezzo) not in mezziOK:
             raise ValueError("tipoMezzo non accettabile")
-            return False
-        self.__parcheggio[tipoMezzo].append(PostoMezzo(False, tipoMezzo, None, None))
+        self.__parcheggio[tipoMezzo].append(PostoMezzo(False, tipoMezzo))
 
-    def occupaPosto(self, targa, tipoMezzo, oreSosta) -> bool:
+    def parcheggiaPosto(self, V, tipoMezzo, oreSosta) -> bool:
         """Occupa un posto per un mezzo specifico es. Auto nell'oggetto Parcheggio"""
-        if str.lower(tipoMezzo) not in mezziOK:
-            raise ValueError("tipoMezzo non accettabile")
-            return False
         for posto in self.__parcheggio[tipoMezzo]:
             if not posto.occupato:
-                posto.occupato = True
-                posto.targa = targa
-                posto.oreSosta = oreSosta
+                posto.parcheggia(V, oreSosta)
                 self.__contaPostiOccupati[tipoMezzo] += 1
                 return True
+            else:
+                raise ValueError("Non ci sono posti disponibili")
         
-
     def liberaPosto(self, targa, tipoMezzo) -> bool:
         """Libera un posto per un mezzo specifico es. Auto nell'ogetto Parcheggio"""
         if str.lower(tipoMezzo) not in mezziOK:
             raise ValueError("tipoMezzo non accettabile")
-            return False
         for posto in self.__parcheggio[tipoMezzo]:
             if posto.occupato and posto.targa == targa:
-                posto.occupato = False
-                posto.targa = None
-                posto.oreSosta = None
-                self.__contaPostiOccupati[tipoMezzo] += 1
+                posto.libera()
+                self.__contaPostiOccupati[tipoMezzo] -= 1
                 return True
-        return False
 
     def conteggioPostiOccupati(self, tipoMezzo = None) -> dict:
         """Restituisce il conteggio dei posti occupati per tipo di veicolo"""
@@ -113,8 +105,3 @@ class Parcheggio:
         for riga in lettore:
             self.__parcheggio.append(riga)
         file.close()
-
-if __name__ == "__main__":
-    park1 = Parcheggio("Parcheggio1")
-    park1.creaPark("auto")
-    print(park1)

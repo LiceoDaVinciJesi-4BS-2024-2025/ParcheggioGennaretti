@@ -8,7 +8,7 @@ from veicolo import targaValida
 mezziOK = ("auto", "moto", "camion", "autobus")
 
 class PostoMezzo:
-    def __init__(self, occupato: bool = None, tipoMezzo: str = None, targa: str = None, oreSosta: int = None, fineSosta: datetime.datetime = None):
+    def __init__(self, occupato: bool = None, tipoMezzo: str = None, veicolo: object = None, oreSosta: float = None):
     
         if occupato == None:
             raise ValueError("Specificare se il posto è libero o occupato")
@@ -18,22 +18,19 @@ class PostoMezzo:
             raise ValueError("Specificare la tipologia di posto")
         self.__tipoMezzo = str.lower(tipoMezzo)
         
-        if not occupato and (targa != None or oreSosta != None):
+        if not occupato and (veicolo != None or oreSosta != None):
             raise ValueError("Un posto libero non può avere targa o oreSosta")
         
-        if occupato and (targa == None or oreSosta == None):
+        if occupato and (veicolo == None or oreSosta == None):
             raise ValueError("Un posto occupato deve avere targa e oreSosta")
         
-        elif occupato and targa != None and oreSosta != None:
-            if len(targa) != 7 or not targaValida(targa):
+        elif occupato and veicolo != None and oreSosta != None:
+            if not targaValida(veicolo):
                 raise ValueError("La targa inserita non è valida")
-            self.__targa = targa
-        
+            self.__veicolo = None
             self.__oreSosta = oreSosta
             self.__fineSosta = datetime.datetime.now() + datetime.timedelta(hours = oreSosta) # Calcola l'orario di fine sosta
             return
-              
-        self.__targa = targa
         
         self.__oreSosta = oreSosta
         
@@ -64,13 +61,23 @@ class PostoMezzo:
         return
     
     @property
-    def targa(self):
-        """proprietà sola lettura: la targa NON deve essere modificabile"""
+    def veicolo(self):
+        """proprietà sola lettura: il veicolo NON deve essere modificabile"""
         return self.__targa
     
-    @targa.setter
-    def targa(self, value):
-        self.__targa = value
+    @veicolo.setter
+    def veicolo(self, value):
+        self.__veicolo = value
+
+    @property
+    def mezzo(self):
+        """Restituisce l'oggetto del mezzo"""
+        return self.__mezzo
+    
+    @mezzo.setter
+    def mezzo(self, value):
+        self.__mezzo = value
+        return
     
     @property
     def oreSosta(self):
@@ -80,13 +87,17 @@ class PostoMezzo:
     @oreSosta.setter
     def oreSosta(self, value):
         self.__oreSosta = value
-        self.__fineSosta = datetime.datetime.now() + datetime.timedelta(hours = value) # Calcola l'orario di fine sosta
         return
     
     @property
     def fineSosta(self):
         """Restituisce l'orario di fine sosta"""
         return self.__fineSosta
+
+    @fineSosta.setter
+    def fineSosta(self, value):
+        self.__fineSosta = value
+        return
     
     def parcheggia(self, V, oreSosta) -> bool:
         """Parcheggia un veicolo in un posto"""
@@ -94,12 +105,22 @@ class PostoMezzo:
             return False
         if isinstance(V, Moto) and self.tipoMezzo == "moto":
             self.occupato = True
-            self.targa = V.targa
+            self.veicolo = V
             self.oreSosta = oreSosta
 
         elif isinstance(V, Auto) and self.tipoMezzo == "auto":
             self.occupato = True
-            self.targa = V.targa
+            self.veicolo = V
+            self.oreSosta = oreSosta
+        
+        elif isinstance(V, Camion) and self.tipoMezzo == "camion":
+            self.occupato = True
+            self.veicolo = V
+            self.oreSosta = oreSosta
+        
+        elif isinstance(V, Autobus) and self.tipoMezzo == "autobus":
+            self.occupato = True
+            self.veicolo = V
             self.oreSosta = oreSosta
 
         else:
@@ -110,9 +131,11 @@ class PostoMezzo:
     def libera(self) -> bool:
         """Libera un posto"""
         if self.occupato:
-            self.targa = None
+            self.veicolo = None
             self.oreSosta = None
-            self.occupato = False    
+            self.occupato = False 
+            self.fineSosta = None  
+            self.mezzo = None 
             return True
         
         else:
