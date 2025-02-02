@@ -1,12 +1,20 @@
 from postomezzo import PostoMezzo
+import csv
 
 mezziOK = ("auto", "moto", "camion", "autobus")
 class Parcheggio:
     def __init__(self, nome):
-        self.__parcheggio = {"auto": [], "moto": [], "camion": [], "autobus": []}
+        self.__parcheggioAuto = []
+        self.__parcheggioMoto = []
+        self.__parcheggioCamion = []
+        self.__parcheggioAutobus = []
+        self.__parcheggio = {"auto": self.__parcheggioAuto, "moto": self.__parcheggioMoto, "camion": self.__parcheggioCamion, "autobus": self.__parcheggioAutobus}
         self.__guadagnoGG = {"auto": 1.5, "moto": 1.2, "camion": 1.8, "autobus": 2.4}
-        self.__nomePark = nome
 
+        self.__contaPostiOccupati = {"auto": 0, "moto": 0, "camion": 0, "autobus": 0}
+        self.__postiMax = {"auto": 1000, "moto": 500, "camion": 100, "autobus": 200}
+        self.__nomePark = nome
+        
     def __str__(self):
         a = "Parcheggio: " + str(self.__dict__)
         return a
@@ -26,26 +34,70 @@ class Parcheggio:
         for tipoMezzo in self.__parcheggio:
             self.__guadagnoGiornaliero[tipoMezzo] = self.__guadagnoGG[tipoMezzo] * self.__parcheggio[tipoMezzo]
         return self.__guadagnoGiornaliero
+    
+    def creaPosto(self, tipoMezzo):
+        if str.lower(tipoMezzo) not in mezziOK:
+            raise ValueError("tipoMezzo non accettabile")
+            return False
+        self.__parcheggio[tipoMezzo].append(PostoMezzo(False, tipoMezzo, None, None))
+    
+    def prenotaPosto(self, targa, tipoMezzo, oreSosta):
+        if str.lower(tipoMezzo) not in mezziOK:
+            raise ValueError("tipoMezzo non accettabile")
+            return False
+        for posto in self.__parcheggio[tipoMezzo]:
+            if not posto.occupato:
+                posto.occupato = True
+                posto.targa = targa
+                posto.oreSosta = oreSosta
+                self.__contaPostiOccupati[tipoMezzo] += 1
+                return True
+        return False
+
+    def liberaPosto(self, targa, tipoMezzo):
+        if str.lower(tipoMezzo) not in mezziOK:
+            raise ValueError("tipoMezzo non accettabile")
+            return False
+        for posto in self.__parcheggio[tipoMezzo]:
+            if posto.occupato and posto.targa == targa:
+                posto.occupato = False
+                posto.targa = None
+                posto.oreSosta = None
+                self.__contaPostiOccupati[tipoMezzo] += 1
+                return True
+        return False
+
+    def conteggioPostiOccupati(self, tipoMezzo = None):
+        if tipoMezzo != None:
+            if str.lower(tipoMezzo) not in mezziOK:
+                raise ValueError("tipoMezzo non accettabile")
+            return self.__contaPostiOccupati[tipoMezzo]
+        else:
+            return self.__contaPostiOccupati
+        
+        # conteggio = {}
+        # for tipoMezzo in self.__parcheggio:
+        #     conteggio[tipoMezzo] = 0
+        #     for posto in self.__parcheggio[tipoMezzo]:
+        #         if posto.occupato:
+        #             conteggio[tipoMezzo] += 1
+        # for tipoMezzo in mezziOK:
+        #     self.__contaPostiOccupati[tipoMezzo] = conteggio[tipoMezzo]
+        # return conteggio
 
     def postiLiberi(self, tipoMezzo):
         if str.lower(tipoMezzo) not in mezziOK:
             raise ValueError("tipoMezzo non accettabile")
-        return len(self.__parcheggio[tipoMezzo])
-    
-    def aggiungiPostoMezzo(self, postoMezzo):
-        if not isinstance(postoMezzo, PostoMezzo):
-            raise ValueError("postoMezzo non accettabile")
-        self.__parcheggio[postoMezzo.tipoMezzo] = postoMezzo
-        return
-    
+        return len(self.__postiMax[tipoMezzo]) - self.conteggioPostiOccupati()[tipoMezzo]
+
     def salvaFile(self):
-        for dato in self.__parcheggio:
-            file = open("park.data", "w", newline="") 
-            scrittore = csv.DictWriter(file, ("auto","moto","camion","autobus"))
-            scrittore.writeheader()
-            for riga in dati:
+        file = open("park.data", "w", newline="")
+        scrittore = csv.DictWriter(file, mezziOK)
+        scrittore.writeheader()
+        for tipoMezzo in mezziOK:
+            for riga in self.__parcheggio[tipoMezzo]:
                 scrittore.writerow(riga)
-            file.close()
+        file.close()
     
     def caricaFile(self):
         file = open("park.data", "r")
@@ -53,3 +105,8 @@ class Parcheggio:
         for riga in lettore:
             self.__parcheggio.append(riga)
         file.close()
+
+if __name__ == "__main__":
+    park1 = Parcheggio("Parcheggio1")
+    park1.creaPark("auto")
+    print(park1)

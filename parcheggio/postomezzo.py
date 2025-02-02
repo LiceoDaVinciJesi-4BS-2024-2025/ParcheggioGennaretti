@@ -3,7 +3,7 @@ from auto import Auto
 from moto import Moto
 from autobus import Autobus
 from camion import Camion
-from veicolo import Veicolo
+from veicolo import targaValida
 
 mezziOK = ("auto", "moto", "camion", "autobus")
 
@@ -25,7 +25,7 @@ class PostoMezzo:
             raise ValueError("Un posto occupato deve avere targa e oreSosta")
         
         elif occupato and targa != None and oreSosta != None:
-            if len(targa) != 7 or not Veicolo.targaValida(targa):
+            if len(targa) != 7 or not targaValida(targa):
                 raise ValueError("La targa inserita non è valida")
             self.__targa = targa
         
