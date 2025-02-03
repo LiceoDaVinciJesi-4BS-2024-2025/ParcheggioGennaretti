@@ -119,3 +119,6 @@ class Veicolo:
         if self.marca == other.marca and self.modello == other.modello and self.cilindrata < other.cilindrata: 
             return True
         return False
+
+
+#PROF: Vedo con piacere che ti sei impegnato a fare i test...

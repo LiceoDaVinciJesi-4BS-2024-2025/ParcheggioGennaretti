@@ -11,7 +11,8 @@ parcheggio = Parcheggio(nome)
 print(f"Benvenuto in {parcheggio.nome}!")
 
 while True:
-    # print("Martino è un tontolone")
+    # print("Martino è un tontolone") #PROF: è vero!!!!
+    # PROF: un menù interattivo testuale... welcome back to the 80s... :D
     scelta = str.lower(input("Cosa vuoi fare? 'crea / occupa / libera / contaPostiOccupati / salva / carica / parcheggio: "))
     if scelta == "parcheggio":
         print(parcheggio)

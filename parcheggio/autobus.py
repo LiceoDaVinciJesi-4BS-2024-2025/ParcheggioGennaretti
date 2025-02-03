@@ -27,3 +27,5 @@ class Autobus(Veicolo):
             raise ValueError("Il numero di persone supera quello trasportabile")
         self.__traspPers = value
         return
+
+#PROF: Vedo con piacere che ti sei impegnato a fare i test...

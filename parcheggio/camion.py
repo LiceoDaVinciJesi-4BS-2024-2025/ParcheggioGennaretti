@@ -27,3 +27,5 @@ class Camion(Veicolo):
             raise ValueError("Il peso della merce supera quello trasportabile")
         self.__traspKg = value
         return
+
+#PROF: Vedo con piacere che ti sei impegnato a fare i test...

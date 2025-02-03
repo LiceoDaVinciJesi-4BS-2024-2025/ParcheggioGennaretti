@@ -8,6 +8,8 @@ class Parcheggio:
 
         self.__tariffaGG = {"auto": 1.5, "moto": 1.2, "camion": 1.8, "autobus": 2.4}
         self.__contaOre = {"auto": 0, "moto": 0, "camion": 0, "autobus": 0}
+
+        # PROF: Questa cosa NON si autoaggiorna... quindi varrà sempre 0. O no??
         self.__guadagnoTotaleGG = {"auto": self.__contaOre["auto"] * self.__tariffaGG["auto"], "moto": self.__contaOre["moto"] * self.__tariffaGG["moto"], "camion": self.__contaOre["camion"] * self.__tariffaGG["camion"], "autobus": self.__contaOre["autobus"] * self.__tariffaGG["autobus"]}
 
         self.__contaPostiOccupati = {"auto": 0, "moto": 0, "camion": 0, "autobus": 0}
@@ -119,3 +121,6 @@ class Parcheggio:
         """Carica i dati del parcheggio da un file csv e ripristina lo stato del parcheggio"""
         file = open("park.data", "r")
         return True
+
+#PROF: Vedo con piacere che ti sei impegnato a fare i test...
+# PROF: tutto sulla fiducia... molto bene! :(

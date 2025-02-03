@@ -140,3 +140,5 @@ class PostoMezzo:
         
         else:
             return False
+
+#PROF: Vedo con piacere che ti sei impegnato a fare i test...
